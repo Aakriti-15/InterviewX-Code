@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:""
     },
-    clearkId:{
+    clerkId:{
         type:String,
         required:true,
         unique:true,
