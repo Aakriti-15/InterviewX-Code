@@ -31,6 +31,18 @@ app.get("/health", (req, res) => {
     res.status(200).json({msg:"api is up and running"})
 })
 
+
+app.get("/debug-env", (req, res) => {
+    res.json({
+        hasEventKey: !!ENV.INNGEST_EVENT_KEY,
+        hasSigningKey: !!ENV.INNGEST_SIGNING_KEY,
+        eventKeyLength: ENV.INNGEST_EVENT_KEY?.length,
+        signingKeyLength: ENV.INNGEST_SIGNING_KEY?.length,
+        eventKeyStart: ENV.INNGEST_EVENT_KEY?.substring(0, 5),
+        signingKeyStart: ENV.INNGEST_SIGNING_KEY?.substring(0, 10)
+    });
+})
+
 app.get("/books", (req, res) => {
     res.status(200).json({msg:"this is the books endpoint"});
 })
