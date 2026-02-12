@@ -17,7 +17,11 @@ app.use(express.json())
 //credientials:true?? = server allows a browser to include cookies on request
 app.use(cors({origin:ENV.CLIENT_URL,credentials:true}))
 
-app.use("/api/inngest", serve({client:inngest,functions}))
+app.use("/api/inngest", serve({
+    client:inngest,
+    functions,
+    signingKey: ENV.INNGEST_SIGNING_KEY
+}))
  
 
 // console.log(ENV.PORT); 
