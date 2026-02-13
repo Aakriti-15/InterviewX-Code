@@ -6,7 +6,8 @@ import {serve} from "inngest/express";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
 import {inngest, functions} from "./lib/inngest.js";
-
+import { clerkMiddleware } from "@clerk/express";
+import chatRoutes from "./routes/chatRoutes.js";
 
 const app = express();
 const __dirname = path.resolve();
@@ -16,6 +17,7 @@ const __dirname = path.resolve();
 app.use(express.json())
 //credientials:true?? = server allows a browser to include cookies on request
 app.use(cors({origin:ENV.CLIENT_URL,credentials:true}))
+app.use(clerkMiddleware());//to verify the user is authenticated before accessing any api routes
 
 app.use("/api/inngest", serve({
     client:inngest,
@@ -23,29 +25,20 @@ app.use("/api/inngest", serve({
     signingKey: ENV.INNGEST_SIGNING_KEY
 }))
  
+app.use("/api/chat", chatRoutes);
 
 // console.log(ENV.PORT); 
 // console.log(ENV.DB_URL)
 
 app.get("/health", (req, res) => {
+    
     res.status(200).json({msg:"api is up and running"})
 })
 
 
-app.get("/debug-env", (req, res) => {
-    res.json({
-        hasEventKey: !!ENV.INNGEST_EVENT_KEY,
-        hasSigningKey: !!ENV.INNGEST_SIGNING_KEY,
-        eventKeyLength: ENV.INNGEST_EVENT_KEY?.length,
-        signingKeyLength: ENV.INNGEST_SIGNING_KEY?.length,
-        eventKeyStart: ENV.INNGEST_EVENT_KEY?.substring(0, 5),
-        signingKeyStart: ENV.INNGEST_SIGNING_KEY?.substring(0, 10)
-    });
-})
 
-app.get("/books", (req, res) => {
-    res.status(200).json({msg:"this is the books endpoint"});
-})
+
+
 
 
 //make ready for deployment
