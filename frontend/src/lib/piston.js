@@ -1,75 +1,55 @@
-const PISTON_API = "/piston";
+const JUDGE0_API = "https://judge0-ce.p.rapidapi.com";
 
-const LANGUAGE_VERSIONS = {
-  javascript: { language: "javascript", version: "18.15.0" },
-  python: { language: "python", version: "3.10.0" },
-  java: { language: "java", version: "15.0.2" },
+const LANGUAGE_IDS = {
+  javascript: 63,
+  python: 71,
+  java: 62,
 };
 
-/**
- * @param {string} language - programming language
- * @param {string} code - source code to execute
- * @returns {Promise<{success:boolean, output?:string, error?: string}>}
- */
 export async function executeCode(language, code) {
   try {
-    const languageConfig = LANGUAGE_VERSIONS[language];
+    const languageId = LANGUAGE_IDS[language];
 
-    if (!languageConfig) {
+    if (!languageId) {
       return {
         success: false,
         error: `Unsupported language: ${language}`,
       };
     }
 
-    const response = await fetch(`${PISTON_API}/execute`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        language: languageConfig.language,
-        version: languageConfig.version,
-        files: [
-          {
-            name: `main.${getFileExtension(language)}`,
-            content: code,
-          },
-        ],
-      }),
-    });
-
-    if (!response.ok) {
-      return {
-        success: false,
-        error: `HTTP error! status: ${response.status}`,
-      };
-    }
+    const response = await fetch(
+      "https://ce.judge0.com/submissions?base64_encoded=false&wait=true",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          language_id: languageId,
+          source_code: code,
+        }),
+      }
+    );
 
     const data = await response.json();
 
-    const output = data.run.output || "";
-    const stderr = data.run.stderr || "";
-    const compileError = data.compile?.output || "";
-
-    if (compileError) {
+    if (data.compile_output) {
       return {
         success: false,
-        error: compileError,
+        error: data.compile_output,
       };
     }
 
-    if (stderr) {
+    if (data.stderr) {
       return {
         success: false,
-        output: output,
-        error: stderr,
+        error: data.stderr,
       };
     }
 
     return {
       success: true,
-      output: output || "No output",
+      output: data.stdout || "No output",
     };
   } catch (error) {
     return {
@@ -77,14 +57,4 @@ export async function executeCode(language, code) {
       error: `Failed to execute code: ${error.message}`,
     };
   }
-}
-
-function getFileExtension(language) {
-  const extensions = {
-    javascript: "js",
-    python: "py",
-    java: "java",
-  };
-
-  return extensions[language] || "txt";
 }
