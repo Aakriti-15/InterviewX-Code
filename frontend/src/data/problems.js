@@ -52,7 +52,7 @@ print(twoSum([3, 2, 4], 6))  # Expected: [1, 2]
 print(twoSum([3, 3], 6))  # Expected: [0, 1]`,
       java: `import java.util.*;
 
-class Solution {
+public class Main {
     public static int[] twoSum(int[] nums, int target) {
         // Write your solution here
         
@@ -102,11 +102,11 @@ class Solution {
 // Test cases
 let test1 = ["h","e","l","l","o"];
 reverseString(test1);
-console.log(test1); // Expected: ["o","l","l","e","h"]
+console.log(JSON.stringify(test1)); // Expected: ["o","l","l","e","h"]
 
 let test2 = ["H","a","n","n","a","h"];
 reverseString(test2);
-console.log(test2); // Expected: ["h","a","n","n","a","H"]`,
+console.log(JSON.stringify(test2)); // Expected: ["h","a","n","n","a","H"]`,
       python: `def reverseString(s):
     # Write your solution here
     pass
@@ -121,7 +121,7 @@ reverseString(test2)
 print(test2)  # Expected: ["h","a","n","n","a","H"]`,
       java: `import java.util.*;
 
-class Solution {
+public class Main {
     public static void reverseString(char[] s) {
         // Write your solution here
         
@@ -191,7 +191,7 @@ console.log(isPalindrome(" ")); // Expected: true`,
 print(isPalindrome("A man, a plan, a canal: Panama"))  # Expected: True
 print(isPalindrome("race a car"))  # Expected: False
 print(isPalindrome(" "))  # Expected: True`,
-      java: `class Solution {
+      java: `public class Main {
     public static boolean isPalindrome(String s) {
         // Write your solution here
         
@@ -257,7 +257,7 @@ console.log(maxSubArray([5,4,-1,7,8])); // Expected: 23`,
 print(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))  # Expected: 6
 print(maxSubArray([1]))  # Expected: 1
 print(maxSubArray([5,4,-1,7,8]))  # Expected: 23`,
-      java: `class Solution {
+      java: `public class Main {
     public static int maxSubArray(int[] nums) {
         // Write your solution here
         
@@ -320,7 +320,7 @@ console.log(maxArea([1,1])); // Expected: 1`,
 # Test cases
 print(maxArea([1,8,6,2,5,4,8,3,7]))  # Expected: 49
 print(maxArea([1,1]))  # Expected: 1`,
-      java: `class Solution {
+      java: `public class Main {
     public static int maxArea(int[] height) {
         // Write your solution here
         
@@ -388,7 +388,7 @@ console.log(lengthOfLongestSubstring("pwwkew")); // Expected: 3`,
 print(lengthOfLongestSubstring("abcabcbb"))  # Expected: 3
 print(lengthOfLongestSubstring("bbbbb"))  # Expected: 1
 print(lengthOfLongestSubstring("pwwkew"))  # Expected: 3`,
-    java: `class Solution {
+    java: `public class Main {
     public static int lengthOfLongestSubstring(String s) {
         // Write your solution here
         
@@ -453,7 +453,7 @@ print(merge([[1,3],[2,6],[8,10],[15,18]]))  # Expected: [[1,6],[8,10],[15,18]]
 print(merge([[1,4],[4,5]]))  # Expected: [[1,5]]`,
     java: `import java.util.*;
 
-class Solution {
+public class Main {
     public static int[][] merge(int[][] intervals) {
         // Write your solution here
         
@@ -516,7 +516,7 @@ console.log(search([-1,0,3,5,9,12], 2)); // Expected: -1`,
 # Test cases
 print(search([-1,0,3,5,9,12], 9))  # Expected: 4
 print(search([-1,0,3,5,9,12], 2))  # Expected: -1`,
-    java: `class Solution {
+    java: `public class Main {
     public static int search(int[] nums, int target) {
         // Write your solution here
         
@@ -576,7 +576,7 @@ console.log(climbStairs(5)); // Expected: 8`,
 print(climbStairs(2))  # Expected: 2
 print(climbStairs(3))  # Expected: 3
 print(climbStairs(5))  # Expected: 8`,
-    java: `class Solution {
+    java: `public class Main {
     public static int climbStairs(int n) {
         // Write your solution here
         
@@ -638,7 +638,7 @@ console.log(maxProfit([7,6,4,3,1])); // Expected: 0`,
 # Test cases
 print(maxProfit([7,1,5,3,6,4]))  # Expected: 5
 print(maxProfit([7,6,4,3,1]))  # Expected: 0`,
-    java: `class Solution {
+    java: `public class Main {
     public static int maxProfit(int[] prices) {
         // Write your solution here
         
