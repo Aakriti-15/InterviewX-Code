@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { Code2, Code2Icon } from 'lucide-react';
 import { getDifficultyBadgeClass } from '../lib/utils';
 import { ChevronRightIcon } from 'lucide-react';
+import { useActiveSessions } from '../hooks/useSessions';
 
 function ProblemsPage() {
     const problems = Object.values(PROBLEMS);

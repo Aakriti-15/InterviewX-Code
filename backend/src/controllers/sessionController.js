@@ -1,5 +1,5 @@
 import Session from "../models/Session.js"
-import { streamClient } from "../lib/stream.js"
+import { streamClient , chatClient} from "../lib/stream.js"
 export async function createSession(req,res){
     try{
         const {problem, difficulty }= req.body
@@ -41,7 +41,9 @@ export async function createSession(req,res){
 
 export async function getActiveSessions(_,res){
     try{
-       const sessions =  await Session.find({status:"active"}).populate("host", "name profileImage email")
+       const sessions =  await Session.find({status:"active"})
+       .populate("host", "name profileImage email")
+       .populate("participant", "name profileImage email")
        .sort({createdAt:-1})
        .limit(20);
          res.status(200).json({sessions})
