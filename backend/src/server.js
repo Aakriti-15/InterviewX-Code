@@ -16,7 +16,13 @@ const __dirname = path.resolve();
 //middleware 
 app.use(express.json())
 //credientials:true?? = server allows a browser to include cookies on request
-app.use(cors({origin:ENV.CLIENT_URL,credentials:true}))
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://interviewx-code-frontend.onrender.com"
+    ],
+    credentials: true,
+}))
 app.use(clerkMiddleware());//to verify the user is authenticated before accessing any api routes
 
 app.use("/api/inngest", serve({
