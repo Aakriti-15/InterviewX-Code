@@ -78,8 +78,8 @@ export async function getSessionById(req,res){
       const {id}= req.params  
 
       const session = await Session.findById(id)
-      .populate("host", "name email profileImage")
-      .populate("participant", "name email profileImage")
+      .populate("host", "name email profileImage clerkId")
+      .populate("participant", "name email profileImage clerkId")
 
       if(!session) return res.status(404).json({message:"Session not found"})
         res.status(200).json({session})
@@ -103,7 +103,7 @@ export async function joinSession(req,res){
                 return res.status(400).json({message:"Cannot join a completed session"});
             }
 
-            if(session.host.toString() === userId,toString()){
+            if(session.host.toString() === userId.toString()){
                 return res.status(400).json({message:"Host cannot join their own session as participant"});
             }
          
